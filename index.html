@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4f0">
+  <meta name="description" content="EVEN — considered everyday pieces, made for the spaces between.">
+  <title>EVEN — Considered everyday</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f5f4f0;
+      --white: #fbfaf7;
+      --ink: #1f211e;
+      --muted: #777873;
+      --line: #deded8;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+      --page: min(1440px, calc(100% - 112px));
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 14px; -webkit-font-smoothing: antialiased; }
+    button, a { color: inherit; font: inherit; }
+    a { text-decoration: none; }
+    button { border: 0; }
+    img { display: block; max-width: 100%; }
+    [hidden] { display: none !important; }
+    .wrap { width: var(--page); margin-inline: auto; }
+    .site-header { height: 82px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); position: relative; z-index: 10; background: var(--paper); }
+    .header-inner { width: var(--page); margin: auto; display: flex; align-items: center; justify-content: space-between; }
+    .wordmark { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 600; letter-spacing: .14em; }
+    .mark { width: 25px; height: 25px; border: 1px solid var(--ink); border-radius: 50%; display: grid; place-items: center; font-family: var(--serif); font-size: 15px; font-weight: 400; letter-spacing: 0; }
+    .desktop-nav { display: flex; gap: 42px; align-items: center; }
+    .nav-link { font-size: 10px; letter-spacing: .16em; font-weight: 600; transition: opacity .2s ease; }
+    .nav-link:hover, .social-link:hover { opacity: .55; }
+    .header-note { color: var(--muted); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .menu-toggle, .mobile-nav { display: none; }
+    .hero { min-height: 610px; display: grid; grid-template-columns: .87fr 1.13fr; gap: 42px; align-items: stretch; padding: 38px 0 64px; }
+    .hero-copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 30px 0 45px; }
+    .eyebrow { color: var(--muted); font-size: 10px; letter-spacing: .17em; line-height: 1.6; text-transform: uppercase; }
+    .hero h1 { margin: 30px 0 18px; font-size: clamp(54px, 7.1vw, 100px); line-height: .88; letter-spacing: -.085em; font-weight: 500; }
+    .hero h1 span { display: block; }
+    .hero-subtitle { max-width: 330px; margin: 0; color: #666862; font-size: 15px; line-height: 1.8; }
+    .button-link { display: inline-flex; align-items: center; gap: 30px; margin-top: 38px; padding: 16px 19px; background: var(--ink); color: var(--white); font-size: 10px; letter-spacing: .14em; transition: background .25s ease, transform .25s ease; }
+    .button-link:hover { background: #4d504a; transform: translateY(-2px); }
+    .button-link .arrow { font-size: 17px; line-height: .7; }
+    .hero-image { position: relative; min-height: 505px; overflow: hidden; background: #dedbd4; }
+    .hero-image img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: 50% 44%; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+    .hero-image:hover img { transform: scale(1.025); }
+    .image-note { position: absolute; bottom: 18px; left: 18px; padding: 9px 11px; background: rgba(251,250,247,.88); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; }
+    .section { padding: 72px 0 90px; border-top: 1px solid var(--line); }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; margin-bottom: 32px; }
+    .section-heading h2 { margin: 12px 0 0; font-size: clamp(32px, 4vw, 52px); font-weight: 500; letter-spacing: -.065em; }
+    .section-count { color: var(--muted); font-size: 10px; letter-spacing: .14em; }
+    .product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; row-gap: 44px; }
+    .product-card { display: block; text-align: left; padding: 0; width: 100%; background: transparent; cursor: pointer; }
+    .product-photo { aspect-ratio: 1; position: relative; overflow: hidden; background: #e5e2dc; }
+    .product-photo img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; transition: opacity .35s ease; }
+    .product-photo img.product-image--hover { opacity: 0; }
+    @media (hover: hover) and (pointer: fine) {
+      .product-card:hover .product-photo img.product-image--hover { opacity: 1; }
+    }
+    .product-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding-top: 14px; }
+    .product-name { font-size: 13px; font-weight: 500; }
+    .product-price { color: #656761; font-size: 12px; white-space: nowrap; }
+    .about { display: grid; grid-template-columns: .75fr 1fr; gap: 12%; align-items: start; padding: 86px 0 100px; border-top: 1px solid var(--line); }
+    .about h2 { font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; margin: 5px 0; }
+    .about-copy { max-width: 650px; }
+    .about-copy .statement { margin: 0 0 24px; font-size: clamp(27px, 3.4vw, 45px); line-height: 1.2; letter-spacing: -.06em; font-weight: 400; }
+    .about-copy .body-copy { max-width: 490px; margin: 0; color: #6c6e68; font-size: 13px; line-height: 1.9; }
+    .footer { border-top: 1px solid var(--line); padding: 30px 0 24px; }
+    .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .social-link { color: #62645f; font-size: 10px; letter-spacing: .09em; transition: opacity .2s; }
+    .footer-bottom { display: flex; justify-content: space-between; margin-top: 46px; color: #888983; font-size: 9px; letter-spacing: .08em; }
+    .product-page { min-height: calc(100vh - 82px); padding: 30px 0 90px; }
+    .back-link { display: inline-flex; gap: 10px; align-items: center; color: #656761; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; padding: 10px 0 24px; background: transparent; cursor: pointer; }
+    .detail-layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: 9%; align-items: start; }
+    .detail-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .detail-gallery img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #e5e2dc; }
+    .detail-info { position: sticky; top: 112px; padding-top: 24px; }
+    .detail-info h1 { max-width: 480px; margin: 18px 0 10px; font-size: clamp(38px, 5vw, 64px); font-weight: 500; letter-spacing: -.07em; line-height: 1; }
+    .detail-price { color: #60625d; font-size: 14px; }
+    .detail-description { max-width: 400px; margin: 32px 0; color: #696b65; font-size: 13px; line-height: 1.9; }
+    .detail-rule { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 22px; }
+    .option-heading { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .option-value { color: var(--muted); letter-spacing: .04em; text-transform: none; }
+    .size-options { display: flex; gap: 8px; }
+    .size-option { width: 42px; height: 42px; border: 1px solid var(--line); background: transparent; font-size: 10px; cursor: pointer; transition: all .2s ease; }
+    .size-option:hover, .size-option[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: white; }
+    .color-chip { width: 15px; height: 15px; display: inline-block; border-radius: 50%; border: 1px solid rgba(31,33,30,.2); vertical-align: middle; margin-right: 7px; }
+    .detail-note { margin-top: 28px; color: var(--muted); font-size: 10px; letter-spacing: .06em; line-height: 1.7; }
+    .fade-in { animation: appear .5s ease both; }
+    @keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 900px) {
+      :root { --page: calc(100% - 56px); }
+      .header-note { display: none; }
+      .hero { min-height: 520px; grid-template-columns: .9fr 1.1fr; gap: 24px; }
+      .hero-image { min-height: 430px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 36px 14px; }
+      .detail-layout { gap: 5%; }
+      .about { gap: 7%; }
+    }
+    @media (max-width: 620px) {
+      :root { --page: calc(100% - 40px); }
+      html { scroll-padding-top: 72px; }
+      .site-header { height: 68px; }
+      .wordmark { font-size: 15px; }
+      .desktop-nav { display: none; }
+      .menu-toggle { display: inline-flex; align-items: center; gap: 9px; padding: 9px 0 9px 10px; background: none; font-size: 10px; letter-spacing: .13em; cursor: pointer; }
+      .menu-icon { width: 17px; display: grid; gap: 4px; }
+      .menu-icon span { display: block; height: 1px; width: 100%; background: var(--ink); }
+      .mobile-nav { position: absolute; top: 67px; left: 0; right: 0; padding: 18px 20px 23px; background: var(--paper); border-bottom: 1px solid var(--line); }
+      .mobile-nav.is-open { display: flex; flex-direction: column; gap: 18px; }
+      .mobile-nav .nav-link { padding: 5px 0; }
+      .hero { display: flex; flex-direction: column-reverse; gap: 0; padding: 18px 0 50px; }
+      .hero-image { height: min(112vw, 510px); min-height: 0; }
+      .hero-copy { padding: 28px 0 7px; }
+      .hero h1 { margin: 17px 0 12px; font-size: clamp(57px, 16vw, 85px); }
+      .hero-subtitle { font-size: 13px; max-width: 310px; }
+      .button-link { margin-top: 23px; padding: 14px 16px; }
+      .section { padding: 56px 0 66px; }
+      .section-heading { margin-bottom: 22px; }
+      .section-heading h2 { font-size: 37px; }
+      .section-count { font-size: 9px; }
+      .product-grid { column-gap: 10px; row-gap: 28px; }
+      .product-photo { aspect-ratio: 3 / 4; }
+      .product-meta { display: block; padding-top: 10px; }
+      .product-name { font-size: 12px; }
+      .product-price { display: block; margin-top: 5px; font-size: 11px; }
+      .product-summary { font-size: 10px; }
+      .about { grid-template-columns: 1fr; gap: 24px; padding: 62px 0 70px; }
+      .about-copy .statement { font-size: 32px; }
+      .footer { padding-top: 24px; }
+      .footer-top { align-items: flex-start; flex-direction: column; }
+      .footer-links { gap: 17px; }
+      .footer-bottom { margin-top: 35px; gap: 20px; font-size: 8px; }
+      .product-page { min-height: calc(100vh - 68px); padding-top: 15px; }
+      .detail-layout { display: flex; flex-direction: column; gap: 22px; }
+      .detail-gallery { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .detail-info { position: static; width: 100%; padding-top: 4px; }
+      .detail-info h1 { font-size: 42px; margin-top: 12px; }
+      .detail-description { margin: 22px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="#top" aria-label="EVEN home"><span class="mark" aria-hidden="true">e</span><span>EVEN</span></a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a class="nav-link" href="#shop">SHOP</a>
+        <a class="nav-link" href="#about">ABOUT</a>
+      </nav>
+      <span class="header-note">Quiet forms. Everyday wear.</span>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
+        <span class="menu-icon" aria-hidden="true"><span></span><span></span></span><span>MENU</span>
+      </button>
+      <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+        <a class="nav-link" href="#shop">SHOP</a>
+        <a class="nav-link" href="#about">ABOUT</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home-view">
+    <div class="wrap" id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow">EVEN · Est. 2021</div>
+          <h1 id="hero-title"><span>Made for</span><span>the in-</span><span>between.</span></h1>
+          <p class="hero-subtitle">Considered everyday pieces, shaped by the spaces we move through.</p>
+          <a class="button-link" href="#shop">EXPLORE COLLECTION <span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1500&q=85" alt="Editorial streetwear look in soft natural light">
+          <span class="image-note">Collection 01 — Form in motion</span>
+        </div>
+      </section>
+
+      <section class="section" id="shop" aria-labelledby="shop-title">
+        <div class="section-heading">
+          <div><div class="eyebrow">A considered wardrobe</div><h2 id="shop-title">The essentials</h2></div>
+          <span class="section-count">01 — 02</span>
+        </div>
+        <div class="product-grid" id="product-grid"></div>
+      </section>
+
+      <section class="about" id="about" aria-labelledby="about-title">
+        <h2 id="about-title">A little about us</h2>
+        <div class="about-copy">
+          <p class="statement">Less, but with intention. Clothes to return to, season after season.</p>
+          <p class="body-copy">EVEN is an independent label exploring the everyday uniform. We make a small collection of useful, well-considered pieces: relaxed silhouettes, expressive graphics, and versatile essentials made to live in. Designed with intention, worn often.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <main class="wrap product-page" id="product-view" hidden aria-live="polite">
+    <button class="back-link" id="back-link" type="button"><span aria-hidden="true">←</span> Back to collection</button>
+    <div class="detail-layout" id="detail-content"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <a class="wordmark" href="#top"><span class="mark" aria-hidden="true">e</span><span>EVEN</span></a>
+        <nav class="footer-links" aria-label="Social and contact links">
+          <a class="social-link" href="https://www.instagram.com/" target="_blank" rel="noreferrer">INSTAGRAM ↗</a>
+          <a class="social-link" href="https://www.tiktok.com/" target="_blank" rel="noreferrer">TIKTOK ↗</a>
+          <a class="social-link" href="mailto:hello@even.studio">CONTACT ↗</a>
+        </nav>
+      </div>
+      <div class="footer-bottom"><span>© 2026 EVEN STUDIO</span><span>MADE TO BE WORN, AGAIN AND AGAIN.</span></div>
+    </div>
+  </footer>
+
+  <script>
+    // Product photos are local files in the assets folder and can be replaced independently.
+    const products = [
+      {
+        slug: "flame-logo-tee", name: "Flame Logo Tee", price: "$58",
+        image: "assets/product-1-image-1.jpg", imageAlt: "Back view of the black Flame Logo Tee",
+        detailImage: "assets/product-1-image-2.jpg", detailAlt: "Front view of the black Flame Logo Tee",
+        color: "Black", swatch: "#171717", sizes: ["S", "M", "L", "XL"],
+        description: "A relaxed black cotton tee with a statement EVEN flame logo at the front and a large monochrome graphic across the back."
+      },
+      {
+        slug: "orbit-graphic-tee", name: "Orbit Graphic Tee", price: "$58",
+        image: "assets/product-2-image-1.jpg", imageAlt: "Front view of the white Orbit Graphic Tee",
+        detailImage: "assets/product-2-image-2.jpg", detailAlt: "Back view of the white Orbit Graphic Tee",
+        color: "White", swatch: "#f8f8f5", sizes: ["S", "M", "L", "XL"],
+        description: "A relaxed white cotton tee with an expressive black graphic at the front and a striking illustrated print across the back."
+      }
+    ];
+
+    const grid = document.getElementById("product-grid");
+    const homeView = document.getElementById("home-view");
+    const productView = document.getElementById("product-view");
+    const detailContent = document.getElementById("detail-content");
+    const mobileNav = document.getElementById("mobile-nav");
+    const menuToggle = document.querySelector(".menu-toggle");
+
+    function renderGrid() {
+      grid.innerHTML = products.map(function(product, index) {
+        return '<button class="product-card fade-in" type="button" data-product="' + product.slug + '" aria-label="View ' + product.name + '">' +
+          '<span class="product-photo"><img class="product-image--primary" loading="lazy" src="' + product.image + '" alt="' + product.imageAlt + '">' +
+          '<img class="product-image--hover" loading="lazy" src="' + product.detailImage + '" alt="" aria-hidden="true"></span>' +
+          '<span class="product-meta"><span class="product-name">' + product.name + '</span><span class="product-price">' + product.price + '</span></span>' +
+          '</button>';
+      }).join("");
+    }
+
+    function showHome(shouldScroll) {
+      homeView.hidden = false;
+      productView.hidden = true;
+      document.title = "EVEN — Considered everyday";
+      closeMenu();
+      if (shouldScroll && location.hash && location.hash.charAt(1) !== "/") {
+        const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        if (target) requestAnimationFrame(function() { target.scrollIntoView(); });
+      }
+    }
+
+    function showProduct(slug) {
+      const product = products.find(function(item) { return item.slug === slug; });
+      if (!product) { showHome(false); return; }
+      homeView.hidden = true;
+      productView.hidden = false;
+      document.title = product.name + " — EVEN";
+      closeMenu();
+      detailContent.innerHTML =
+        '<div class="detail-gallery fade-in"><img src="' + product.image + '" alt="' + product.imageAlt + '"><img src="' + product.detailImage + '" alt="' + product.detailAlt + '"></div>' +
+        '<section class="detail-info fade-in" aria-labelledby="detail-title"><div class="eyebrow">EVEN essentials</div><h1 id="detail-title">' + product.name + '</h1><div class="detail-price">' + product.price + '</div>' +
+        '<p class="detail-description">' + product.description + '</p>' +
+        '<div class="detail-rule"><div class="option-heading"><span>Color</span><span class="option-value"><span class="color-chip" style="background:' + product.swatch + '" aria-hidden="true"></span>' + product.color + '</span></div></div>' +
+        '<div class="detail-rule"><div class="option-heading"><span>Available sizes</span><span class="option-value" id="selected-size">Select a size</span></div><div class="size-options">' +
+        product.sizes.map(function(size) { return '<button class="size-option" type="button" aria-pressed="false">' + size + '</button>'; }).join("") +
+        '</div></div><p class="detail-note">A considered piece for everyday wear.<br>For product enquiries, contact hello@even.studio.</p></section>';
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderFromLocation(scrollToAnchor) {
+      const match = location.hash.match(/^#\/product\/([^/]+)$/);
+      if (match) showProduct(decodeURIComponent(match[1]));
+      else showHome(scrollToAnchor);
+    }
+
+    function closeMenu() {
+      mobileNav.classList.remove("is-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.querySelector("span:last-child").textContent = "MENU";
+    }
+
+    grid.addEventListener("click", function(event) {
+      const card = event.target.closest("[data-product]");
+      if (!card) return;
+      const slug = card.getAttribute("data-product");
+      history.pushState({ product: slug }, "", "#/product/" + slug);
+      showProduct(slug);
+    });
+
+    detailContent.addEventListener("click", function(event) {
+      const size = event.target.closest(".size-option");
+      if (size) {
+        detailContent.querySelectorAll(".size-option").forEach(function(option) { option.setAttribute("aria-pressed", String(option === size)); });
+        document.getElementById("selected-size").textContent = size.textContent;
+      }
+    });
+
+    document.getElementById("back-link").addEventListener("click", function() {
+      if (history.state && history.state.product) history.back();
+      else { history.pushState({}, "", "#shop"); renderFromLocation(true); }
+    });
+
+    menuToggle.addEventListener("click", function() {
+      const open = menuToggle.getAttribute("aria-expanded") !== "true";
+      menuToggle.setAttribute("aria-expanded", String(open));
+      mobileNav.classList.toggle("is-open", open);
+      menuToggle.querySelector("span:last-child").textContent = open ? "CLOSE" : "MENU";
+    });
+
+    mobileNav.addEventListener("click", function(event) {
+      if (event.target.closest("a")) closeMenu();
+    });
+
+    window.addEventListener("popstate", function() { renderFromLocation(true); });
+    window.addEventListener("hashchange", function() { renderFromLocation(true); });
+
+    renderGrid();
+    renderFromLocation(false);
+  </script>
+</body>
+</html>
+
